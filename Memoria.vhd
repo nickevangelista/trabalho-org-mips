@@ -1,4 +1,5 @@
 -- memory_dual_port.vhd
+-- typo mistake
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
