@@ -1,59 +1,74 @@
--- Bibliotecas padrão do IEEE
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
--- ESSENCIAL para converter o endereço (vetor) para um inteiro
 USE ieee.numeric_std.all; 
 
--- Definição da Entidade "Memoria"
-ENTITY memory IS
+-- Entidade de Memória de Porta Dupla (Dual-Port RAM)
+-- "1 porta de leitura" (Porta A, para instruções)
+-- "1 porta de leitura/escrita" (Porta B, para dados)
+ENTITY memory_dual_port IS
     GENERIC (
-        DATA_WIDTH : integer := 32; -- Largura do dado (32 bits para MIPS)
-        ADDR_WIDTH : integer := 10  -- Largura do endereço (10 bits = 2^10 = 1024 posições)
+        DATA_WIDTH : integer := 32; -- Largura do dado (32 bits)
+        ADDR_WIDTH : integer := 10  -- Largura do endereço (1024 posições)
     );
     PORT (
-        clk      : IN  std_logic; -- Clock para escrita síncrona
-        wr_en    : IN  std_logic; -- '1' para escrever, '0' para ler (Write Enable)
-        addr     : IN  std_logic_vector(ADDR_WIDTH - 1 DOWNTO 0); -- Endereço
-        data_in  : IN  std_logic_vector(DATA_WIDTH - 1 DOWNTO 0); -- Dado a ser escrito
-        data_out : OUT std_logic_vector(DATA_WIDTH - 1 DOWNTO 0)  -- Dado lido da memória
+        clk      : IN  std_logic; -- Clock (APENAS para escrita)
+
+        -- Porta A: Leitura de Instrução (conectada ao PC)
+        addr_a   : IN  std_logic_vector(ADDR_WIDTH - 1 DOWNTO 0);
+        data_out_a : OUT std_logic_vector(DATA_WIDTH - 1 DOWNTO 0);
+
+        -- Porta B: Acesso a Dados (conectada à ULA e RegFile)
+        addr_b   : IN  std_logic_vector(ADDR_WIDTH - 1 DOWNTO 0);
+        wr_en_b  : IN  std_logic; -- '1' para escrever, '0' para ler
+        data_in_b  : IN  std_logic_vector(DATA_WIDTH - 1 DOWNTO 0);
+        data_out_b : OUT std_logic_vector(DATA_WIDTH - 1 DOWNTO 0)
     );
-END ENTITY memory;
+END ENTITY memory_dual_port;
 
--- Arquitetura da Memória
-ARCHITECTURE rtl OF memory IS
+ARCHITECTURE rtl OF memory_dual_port IS
 
-    -- Define o "tamanho" da memória (profundidade) com base na largura do endereço
-    constant DEPTH : integer := 2**ADDR_WIDTH; -- Ex: 2^10 = 1024
-
-    -- 1. Define um tipo "array" para ser a nossa memória
-    --    É um array de [0 até 1023] onde cada posição guarda um vetor de 32 bits.
+    constant DEPTH : integer := 2**ADDR_WIDTH; -- 1024 posições
+    
+    -- O array de memória (o "armário" de gavetas)
     TYPE ram_type IS ARRAY (0 TO DEPTH - 1) OF std_logic_vector(DATA_WIDTH - 1 DOWNTO 0);
-
-    -- 2. Instancia a memória (RAM) usando o tipo que criamos
-    --    Nota: Inicializamos tudo com '0' para facilitar a simulação.
-    SIGNAL ram : ram_type := (OTHERS => (OTHERS => '0'));
+    
+    -- Instancia a memória. Em FPGAs reais, isso se torna um Bloco de RAM (BRAM)
+    -- 'shared variable' é frequentemente usada para RAMs dual-port para simulação
+    SHARED VARIABLE ram : ram_type := (OTHERS => (OTHERS => '0'));
 
 BEGIN
 
-    -- 3. Processo de Escrita (SÍNCRONO)
-    --    Este processo só "enxerga" o clock.
-    write_process : PROCESS (clk)
+    -- Processo de Escrita (Porta B)
+    -- A escrita é síncrona (só acontece na borda do clock)
+    write_process_B : PROCESS (clk)
     BEGIN
-        -- A escrita só acontece na borda de subida do clock
         IF rising_edge(clk) THEN
-            -- E somente se o sinal 'Write Enable' estiver ativo ('1')
-            IF wr_en = '1' THEN
-                -- Converte o endereço (std_logic_vector) para um inteiro e escreve
-                ram(to_integer(unsigned(addr))) <= data_in;
+            IF wr_en_b = '1' THEN
+                ram(to_integer(unsigned(addr_b))) := data_in_b;
             END IF;
         END IF;
-    END PROCESS write_process;
+    END PROCESS write_process_B;
 
-    -- 4. Processo de Leitura (ASSÍNCRONO)
-    --    A leitura é combinacional. O dado de saída reflete
-    --    imediatamente o conteúdo da posição de memória apontada pelo 'addr'.
-    --    Isso bate com seu diagrama, onde a saída da Memória alimenta
-    --    um registrador (como o Reg_Inst).
-    data_out <= ram(to_integer(unsigned(addr)));
+    -- Leitura (Porta A) - Assíncrona
+    -- Conectada ao PC para buscar instruções
+    read_process_A : PROCESS (addr_a)
+    BEGIN
+        data_out_a <= ram(to_integer(unsigned(addr_a)));
+    END PROCESS read_process_A;
+
+    -- Leitura (Porta B) - Assíncrona
+    -- Conectada à ULA para 'lw'
+    read_process_B : PROCESS (addr_b, wr_en_b)
+    BEGIN
+        -- IMPORTANTE: Para evitar ler e escrever ao mesmo tempo
+        -- nós só lemos se o 'wr_en' for '0'.
+        IF wr_en_b = '0' THEN
+             data_out_b <= ram(to_integer(unsigned(addr_b)));
+        END IF;
+    END PROCESS read_process_B;
+    
+    -- Nota: O código acima infere uma RAM "Read-first".
+    -- Modelos mais complexos podem ser "Write-first".
+    -- Para um processador MIPS, isso é suficiente.
 
 END ARCHITECTURE rtl;
