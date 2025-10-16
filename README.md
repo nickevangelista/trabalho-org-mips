@@ -1,3 +1,3 @@
 # Trabalho de ORG
 ## Descrição
-ihdaushdas
+Trabalho de Organização de Computadores programado em .vhd tipo MIPS.
