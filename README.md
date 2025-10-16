@@ -1,3 +1,3 @@
-# Trabalho de ORG
-## Descrição
-Trabalho de Organização de Computadores programado em .vhd tipo MIPS.
+# 32-bit MIPS Processor Project
+## Description
+This is a project made by UERGS students for a subject called Computer Organization.
