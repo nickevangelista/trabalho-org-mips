@@ -1,38 +1,49 @@
+-- alu.vhd
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
-entity ULA is
+entity alu is
     Port (
-        A       : in  STD_LOGIC_VECTOR(31 downto 0);
-        B       : in  STD_LOGIC_VECTOR(31 downto 0);
-        Op      : in  STD_LOGIC_VECTOR(3 downto 0);
-        ULA_Out : out STD_LOGIC_VECTOR(31 downto 0)
+        a       : in  STD_LOGIC_VECTOR(31 downto 0);
+        b       : in  STD_LOGIC_VECTOR(31 downto 0);
+        alu_op  : in  STD_LOGIC_VECTOR(3 downto 0);
+        result  : out STD_LOGIC_VECTOR(31 downto 0);
+        zero    : out std_logic
     );
-end ULA;
+end alu;
 
-architecture Behavioral of ULA is
-    signal Reg_A, Reg_B, Result : signed(31 downto 0);
+architecture Behavioral of alu is
+    signal result_signed : signed(31 downto 0);
+    signal result_vec    : std_logic_vector(31 downto 0);
 begin
-    Reg_A <= signed(A);
-    Reg_B <= signed(B);
 
-    process(Reg_A, Reg_B, Op)
+    process(a, b, alu_op)
     begin
-        case OP is
-            when "0000" =>  
-                Result <= Reg_A + Reg_B;
+        -- default
+        result_signed <= (others => '0');
+        result_vec    <= (others => '0');
 
-            when "0001" =>  
-                Result <= Reg_A and Reg_B;
+        case alu_op is
+            when "0000" =>  -- add
+                result_signed <= signed(a) + signed(b);
+                result_vec <= std_logic_vector(result_signed);
 
-            when "0010" =>  
-                Result <= Reg_A - Reg_B;
+            when "0001" =>  -- bitwise AND
+                result_vec <= a and b;
+
+            when "0010" =>  -- subtract
+                result_signed <= signed(a) - signed(b);
+                result_vec <= std_logic_vector(result_signed);
 
             when others =>
-                Result <= (others => '0');
+                result_vec <= (others => '0');
         end case;
     end process;
 
-    ULA_Out <= std_logic_vector(Result);
+    result <= result_vec;
+
+    -- zero flag
+    zero <= '1' when result_vec = (others => '0') else '0';
+
 end Behavioral;
