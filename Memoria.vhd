@@ -1,5 +1,6 @@
 -- memory_dual_port.vhd
 -- typo mistake
+-- continuar trabalhando no basico no domingo e toplvl deixa pra terceira/quarta call;
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
