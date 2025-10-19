@@ -22,7 +22,9 @@ The processor supports six core MIPS instructions:
 - I-type: Used for load, store, and branch operations
 - J-type: Used for jump operations
 - Instruction width: 32 bits (4 bytes)
+  
 ![Formato das Instrucoes](instrucoes.png)
+
 ## MIPS Control Unit
 The control unit manages the processor through signals such as: MemRead, MemWrite, RegWrite, IRWrite, RegDst, MemtoReg, ALUSrc, ALUControl, PCWrite, PCSrc, and Branch.
 Each signal defines how the processor behaves during the five execution stages: IF, ID, EX, MEM, and WB.
