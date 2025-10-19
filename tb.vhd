@@ -1,110 +1,74 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL; -- Useful if you want to display integer values for debugging
+use IEEE.NUMERIC_STD.ALL;
 
-entity Calculadora_tb is
-end Calculadora_tb;
+entity toplevel_tb is
+end toplevel_tb;
 
-architecture Behavioral of Calculadora_tb is
+architecture Behavioral of toplevel_tb is
 
-    -- Component Declaration for the Unit Under Test (UUT)
-    component Calculadora
+    -- 1. Component Declaration for the Unit Under Test (UUT)
+    --    Isso DEVE ser idêntico à 'entity' do seu toplevel.vhd
+    component toplevel
         port (
-            clock, start, reset : in std_logic;
-            a, b, c             : in std_logic_vector(15 downto 0);
-            r                   : out std_logic_vector(15 downto 0)
+            clk : IN  std_logic;
+            rst : IN  std_logic
         );
     end component;
 
-    -- Signals for the testbench
-    signal tb_clock : std_logic := '0'; -- Initialize clock to '0'
-    signal tb_start : std_logic := '0';
-    signal tb_reset : std_logic := '1'; -- Start in reset state
-    signal tb_a     : std_logic_vector(15 downto 0) := (others => '0');
-    signal tb_b     : std_logic_vector(15 downto 0) := (others => '0');
-    signal tb_c     : std_logic_vector(15 downto 0) := (others => '0');
-    signal tb_r     : std_logic_vector(15 downto 0);
+    -- 2. Signals for the testbench
+    signal tb_clk : std_logic := '0'; -- Sinal do Clock
+    signal tb_rst : std_logic := '1'; -- Sinal do Reset (começa em '1')
 
-    -- Clock period definition
-    constant CLOCK_PERIOD : time := 10 ns; -- 10 nanoseconds clock period
+    -- 3. Clock period definition
+    constant CLOCK_PERIOD : time := 10 ns; -- Define um clock de 100 MHz (10 ns)
 
 begin
 
-    -- Instantiate the Unit Under Test (UUT)
-    UUT : Calculadora
+    -- 4. Instantiate the Unit Under Test (UUT)
+    --    Conecta os sinais do testbench às portas do processador
+    UUT : toplevel
         port map (
-            clock => tb_clock,
-            start => tb_start,
-            reset => tb_reset,
-            a     => tb_a,
-            b     => tb_b,
-            c     => tb_c,
-            r     => tb_r
+            clk => tb_clk,
+            rst => tb_rst
         );
 
-    -- Clock generation process
+    -- 5. Clock generation process
+    --    Este processo gera um sinal de clock contínuo
     clock_gen_proc : process
     begin
         loop
-            tb_clock <= '0';
+            tb_clk <= '0';
             wait for CLOCK_PERIOD / 2;
-            tb_clock <= '1';
+            tb_clk <= '1';
             wait for CLOCK_PERIOD / 2;
         end loop;
     end process clock_gen_proc;
 
-    -- Test stimulus process
+    -- 6. Test stimulus process
+    --    Este processo controla o reset e o tempo de simulação
     stimulus_proc : process
     begin
-        report "--- Simulation Start ---";
+        report "--- Iniciando Simulação do Processador ---";
         
-        -- FAZ A = 2 B = 2 C = 4, Resultado esperado: -28
-        tb_reset <= '1';
-        report "Applying reset";
-        wait for CLOCK_PERIOD * 2; -- Hold reset for a few clock cycles
+        -- Mantém o processador em reset por 5 ciclos de clock
+        tb_rst <= '1';
+        report "Aplicando reset...";
+        wait for CLOCK_PERIOD * 5;
 
-        tb_reset <= '0';
-        report "Releasing reset, setting inputs A=2, B=2, C=4";
-        tb_a     <= std_logic_vector(to_signed(2, 16)); -- A = 2
-        tb_b     <= std_logic_vector(to_signed(2, 16)); -- B = 2
-        tb_c     <= std_logic_vector(to_signed(4, 16)); -- C = 4
-        wait for CLOCK_PERIOD*4; -- Give some time for inputs to propagate
-
-        report "Asserting start signal...";
-        tb_start <= '1';
-        wait for CLOCK_PERIOD; 
-
-        report "Deasserting start signal...";
-        tb_start <= '0';
-
-        report "Waiting for calculation to complete...";
-        wait for CLOCK_PERIOD * 10; 
-
-        -- FAZ A = 4 B = 4 C = 2, Resultado esperado: 1/2 ou 1 no caso
-        tb_reset <= '1';
-        report "Applying reset";
-        wait for CLOCK_PERIOD * 2; -- Hold reset for a few clock cycles
-
-        tb_reset <= '0';
-        report "Releasing reset, setting inputs A=2, B=2, C=4";
-        tb_a     <= std_logic_vector(to_signed(4, 16)); -- A = 4
-        tb_b     <= std_logic_vector(to_signed(4, 16)); -- B = 4
-        tb_c     <= std_logic_vector(to_signed(2, 16)); -- C = 2
-        wait for CLOCK_PERIOD*4; -- Give some time for inputs to propagate
-
-        report "Asserting start signal...";
-        tb_start <= '1';
-        wait for CLOCK_PERIOD; 
-
-        report "Deasserting start signal...";
-        tb_start <= '0';
-
-        report "Waiting for calculation to complete...";
-        wait for CLOCK_PERIOD * 10; 
+        -- Libera o reset. O processador começará a rodar (buscar instrução 0)
+        tb_rst <= '0';
+        report "Reset liberado. Processador está rodando o programa da memória...";
         
-        wait; -- Wait forever to end the simulation
+        -- Deixa a simulação rodar por um tempo
+        -- Mude '200' para o número de ciclos que seu programa precisa
+        wait for CLOCK_PERIOD * 200; 
+
+        report "Simulação terminada. Verifique os resultados na waveform.";
+        
+        -- Para a simulação
+        wait; 
 
     end process stimulus_proc;
 
-end Behavioral;**
-**
+end Behavioral;
