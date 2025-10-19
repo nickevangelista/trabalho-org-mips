@@ -3,13 +3,13 @@
 This project was developed by UERGS students for the Computer Organization course. It implements a simplified 32-bit MIPS processor architecture, designed to execute a selected set of instructions using a multicyle datapath and unified memory system.
 ## Instruction Set
 The processor supports six core MIPS instructions:
-- ADD – Arithmetic addition (R-type)
-- SUB – Arithmetic subtraction (R-type)
-- AND – Bitwise AND (R-type)
-- LW – Load Word (I-type)
-- SW – Store Word (I-type)
-- BEQ – Branch if Equal (I-type)
-- JUMP – Unconditional jump (J-type)
+- ADD – Arithmetic addition (R-type) - 0000
+- SUB – Arithmetic subtraction (R-type) - 0010
+- AND – Bitwise AND (R-type) - 0001
+- LW – Load Word (I-type) - 0100
+- SW – Store Word (I-type) - 0101
+- BEQ – Branch if Equal (I-type) - 0110
+- JUMP – Unconditional jump (J-type) - 1000
 ## Registers
 - Total registers: 16 general-purpose registers (R0–R15)
 - Register address size: 4 bits
