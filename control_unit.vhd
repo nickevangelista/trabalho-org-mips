@@ -6,7 +6,7 @@ entity control_unit is
     port (
         clk     : in  std_logic;
         rst     : in  std_logic;
-        opcode  : in  std_logic_vector(3 downto 0); -- Sua entrada de 4 bits
+        opcode  : in  std_logic_vector(3 downto 0);
         
         -- Write Enables
         pc_we       : out std_logic;
@@ -26,12 +26,12 @@ entity control_unit is
         -- Sinais de Desvio
         is_jump   : out std_logic;
         is_branch : out std_logic
-        -- REMOVIDO: flag_sel (não é usado por nenhum componente seu)
     );
 end entity;
 
 architecture fsm of control_unit is
-    type state_t is (S_FETCH, S_DECODE, S_EXEC_R, S_EXEC_I, S_EXEC_J, S_MEM, S_WB);
+    -- ADICIONADO NOVO ESTADO S_EXEC_B (para Branch)
+    type state_t is (S_FETCH, S_DECODE, S_EXEC_R, S_EXEC_I, S_EXEC_B, S_EXEC_J, S_MEM, S_WB);
     signal state, next_state : state_t;
 
 begin
@@ -66,7 +66,7 @@ begin
         alu_sel     <= "000";
         is_jump     <= '0';
         is_branch   <= '0';
-        next_state  <= S_FETCH; -- Padrão
+        next_state  <= S_FETCH;
 
         -- 2. Lógica de Estados (FSM)
         case state is
@@ -78,66 +78,91 @@ begin
                 next_state  <= S_DECODE;
 
             ----------------------------------------------------------------
-            -- CICLO 2: S_DECODE (CORRIGIDO com sua lista)
+            -- CICLO 2: S_DECODE (CORRIGIDO para BEQ)
             when S_DECODE =>
-                reg_a_we <= '1';
-                reg_b_we <= '1';
+                reg_a_we <= '1'; -- Salva rs
+                reg_b_we <= '1'; -- Salva rt
                 
                 case opcode is
                     when "0000" | "0001" | "0010" => -- ADD, AND, SUB
                         next_state <= S_EXEC_R;
                     when "0100" | "0101" =>         -- LW, SW
                         next_state <= S_EXEC_I;
-                    when "0110" | "1000" =>         -- BEQ, JUMP
-                        next_state <= S_EXEC_J;
+                    when "0110" =>                  -- BEQ
+                        next_state <= S_EXEC_B;     -- <-- CORRIGIDO
+                    when "1000" =>                  -- JUMP
+                        next_state <= S_EXEC_J;     -- <-- CORRIGIDO
                     when others =>
-                        next_state <= S_FETCH; -- Instrução inválida
+                        next_state <= S_FETCH;
                 end case;
 
             ----------------------------------------------------------------
-            -- CICLO 3: S_EXEC_R (Correto)
+            -- CICLO 3: S_EXEC_R (Tipo-R: ADD, AND, SUB)
             when S_EXEC_R =>
                 ula_out_we <= '1';
                 ALUSrcB    <= '0';
-                alu_sel    <= opcode(2 downto 0); -- ADD(000), AND(001), SUB(010)
+                alu_sel    <= opcode(2 downto 0);
                 next_state <= S_WB;
 
             ----------------------------------------------------------------
-            -- CICLO 3: S_EXEC_I (Correto)
+            -- CICLO 3: S_EXEC_I (Tipo-I: LW, SW)
             when S_EXEC_I =>
+                -- Calcula endereço (R_base + Imediato)
                 ula_out_we <= '1';
-                ALUSrcB    <= '1'; -- Mux da ULA seleciona o Imediato
-                alu_sel    <= "000"; -- ULA deve somar (para LW/SW)
+                ALUSrcB    <= '1'; -- Seleciona Imediato
+                alu_sel    <= "000"; -- ULA faz SOMA
                 next_state <= S_MEM; 
 
             ----------------------------------------------------------------
-            -- CICLO 3: S_EXEC_J (CORRIGIDO com sua lista)
-            when S_EXEC_J =>
-                pc_we <= '1'; -- Habilita escrita no PC
+            -- CICLO 3: S_EXEC_B (Tipo-I: BEQ) -- NOVO ESTADO
+            when S_EXEC_B =>
+                -- Ação:
+                -- 1. O subtrator_beq (fora da UC) compara Reg_A e Reg_B (OK)
+                -- 2. A ULA precisa calcular o endereço de desvio (PC + Imediato)
+                --    (ATENÇÃO: Isso exige um MUX na entrada A da ULA no seu toplevel)
                 
-                case opcode is
-                    when "1000" => -- JUMP
-                        is_jump <= '1';
-                    when "0110" => -- BEQ
-                        is_branch <= '1';
-                    when others =>
-                        null;
-                end case;
-                next_state <= S_FETCH; -- Desvios terminam aqui
+                -- Assumindo que a ULA calcula o endereço de branch:
+                ula_out_we <= '1'; -- Salva o endereço de branch (PC + Imediato)
+                ALUSrcB    <= '1'; -- ULA B = Imediato
+                alu_sel    <= "000"; -- ULA faz SOMA
+                -- (Você precisa de um Mux para ULA A = PC)
+                
+                -- Ativa os sinais de branch para o Mux_PC
+                is_branch  <= '1';
+                pc_we      <= '1';
+                next_state <= S_FETCH; -- Termina o ciclo
 
             ----------------------------------------------------------------
-            -- CICLO 4: S_MEM (Correto)
+            -- CICLO 3: S_EXEC_J (Tipo-J: JUMP) -- CORRIGIDO
+            when S_EXEC_J =>
+                -- Ação: A ULA calcula o endereço de JUMP
+                
+                -- Assumindo que o endereço de JUMP é o Imediato (absoluto)
+                -- e a ULA precisa passar o Imediato para ULA_out
+                ula_out_we <= '1';
+                ALUSrcB    <= '1';
+                -- (Precisaria de uma operação "Bypass B" na ULA, ex: "111")
+                -- Vamos usar a SOMA com Zero (Reg_A = 0) se não puder
+                alu_sel    <= "000"; -- (Assumindo que Reg_A está zerado ou Mux A existe)
+                
+                -- Ativa os sinais de jump para o Mux_PC
+                is_jump    <= '1';
+                pc_we      <= '1';
+                next_state <= S_FETCH; -- Termina o ciclo
+
+            ----------------------------------------------------------------
+            -- CICLO 4: S_MEM (LW/SW)
             when S_MEM =>
                 if opcode = "0101" then -- SW
                     mem_we     <= '1';
-                    next_state <= S_FETCH; -- Termina
+                    next_state <= S_FETCH;
                 else -- LW ("0100")
                     reg_data_we <= '1';
                     next_state  <= S_WB;
                 end if;
 
             ----------------------------------------------------------------
-            -- CICLO 5: S_WB (Correto)
+            -- CICLO 5: S_WB (Tipo-R / LW)
             when S_WB =>
                 regfile_we <= '1';
                 
