@@ -1,170 +1,180 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
 
-entity control_unit is
-    port (
-        clk     : in  std_logic;
-        rst     : in  std_logic;
-        opcode  : in  std_logic_vector(3 downto 0);
+entity ControlUnit is
+    Port ( 
+        clk             : in  std_logic;
+        reset           : in  std_logic;
         
-        -- Write Enables
-        pc_we       : out std_logic;
-        reg_inst_we : out std_logic;
-        reg_a_we    : out std_logic;
-        reg_b_we    : out std_logic;
-        reg_data_we : out std_logic;
-        ula_out_we  : out std_logic;
-        regfile_we  : out std_logic;
-        mem_we      : out std_logic;
-
-        -- Seletores de MUX
-        ALUSrcB   : out std_logic;
-        MemToReg  : out std_logic;
-        alu_sel   : out std_logic_vector(2 downto 0);
+        Opcode          : in  std_logic_vector(3 downto 0); 
         
-        -- Sinais de Desvio
-        is_jump   : out std_logic;
-        is_branch : out std_logic;
-
-        -- Sinal extra esperado pelo toplevel (n„o usado em outros mÛdulos por enquanto)
-        flag_sel  : out std_logic_vector(1 downto 0)
+        -- Sa√≠das para o Data Path 
+        Pc_write        : out std_logic;                        -- Controle do PC
+        Mem_write       : out std_logic;                        -- Controle da Mem√≥ria
+        Regs_write      : out std_logic;                        -- Controle do Banco de Regs
+        ULA_op          : out std_logic_vector(1 downto 0);     -- ULA (00-add, 01-sub, 10-and)
+        Reg_Inst_write  : out std_logic;                        -- IR
+        Reg_Data_write  : out std_logic;                        -- DR
+        Mux_Data_sel    : out std_logic ;                       -- Mux Data (1 - ULA_out, 0 para mem_data)
+        Reg_A_write     : out std_logic;
+        Reg_B_write     : out std_logic;
+        Mux_PC_sel      : out std_logic_vector(1 downto 0);     -- Mux PC(
+        Mux_MEM_sel     : out std_logic_vector(1 downto 0);     -- Mux MEM
+        ULA_out_write   : out std_logic;                        -- Controle do registrador de sa√≠da da ULA
+        fio_jump        : out std_Logic
     );
-end entity;
+end ControlUnit;
 
-architecture fsm of control_unit is
-    -- ADICIONADO NOVO ESTADO S_EXEC_B (para Branch)
-    type state_t is (S_FETCH, S_DECODE, S_EXEC_R, S_EXEC_I, S_EXEC_B, S_EXEC_J, S_MEM, S_WB);
-    signal state, next_state : state_t;
+architecture Behavioral of ControlUnit is
+
+    type state_type is (
+        IDLE,       
+        IF_STATE,   
+        ID_STATE,   
+        REGS_STATE, -- Leitura de Regs/Decis√£o
+        ADD_STATE,  
+        SUB_STATE,  
+        AND_STATE,  
+        WB_STATE,   -- WB 
+        LOAD10,     -- Calcula endereco do LOAD
+        LOAD11,     -- Leitura do dado na mem√≥ria
+        LOAD12,     -- WB do load
+        STORE13,    
+        BEQ4,       
+        JUMP5       
+    );
+    
+    signal current_state, next_state : state_type;
 
 begin
-    ----------------------------------------------------------------
-    -- Processo 1: Registrador de Estado
-    ----------------------------------------------------------------
-    process(clk, rst)
+
+    process(clk, reset)
     begin
-        if rst = '1' then
-            state <= S_FETCH;
+        if reset = '1' then
+            current_state <= IDLE;
         elsif rising_edge(clk) then
-            state <= next_state;
+            current_state <= next_state;
         end if;
     end process;
 
-    ----------------------------------------------------------------
-    -- Processo 2: LÛgica Combinacional (sinais de controle)
-    ----------------------------------------------------------------
-    process(state, opcode)
+    process(current_state, Opcode)
     begin
-        -- 1. Valores Padr„o
-        pc_we       <= '0';
-        reg_inst_we <= '0';
-        reg_a_we    <= '0';
-        reg_b_we    <= '0';
-        reg_data_we <= '0';
-        ula_out_we  <= '0';
-        regfile_we  <= '0';
-        mem_we      <= '0';
-        ALUSrcB     <= '0';
-        MemToReg    <= '0';
-        alu_sel     <= "000";
-        is_jump     <= '0';
-        is_branch   <= '0';
-        flag_sel    <= "00";   -- default (adicionado para compatibilidade com toplevel)
-        next_state  <= S_FETCH;
+       
+        Pc_write       <= '0';
+        Mem_write      <= '0';
+        Regs_write     <= '0';
+        ULA_op         <= "00";
+        Reg_Inst_write <= '0';
+        Reg_Data_write <= '0';
+        Mux_Data_sel   <= '0';
+        Reg_A_write    <= '0';
+        Reg_B_write    <= '0';
+        Mux_PC_sel     <= "00";
+        Mux_MEM_sel    <= "00";
+        ULA_out_write  <= '0'; 
 
-        -- 2. LÛgica de Estados (FSM)
-        case state is
-            ----------------------------------------------------------------
-            -- CICLO 1: S_FETCH
-            when S_FETCH =>
-                reg_inst_we <= '1';
-                pc_we       <= '1';
-                next_state  <= S_DECODE;
+        case current_state is
+            
+            when IDLE =>
+                next_state <= IF_STATE;
 
-            ----------------------------------------------------------------
-            -- CICLO 2: S_DECODE
-            when S_DECODE =>
-                reg_a_we <= '1'; -- Salva rs
-                reg_b_we <= '1'; -- Salva rt
+            when IF_STATE =>
+                Pc_write       <= '1';  
+                Mem_write      <= '1';  
+                Reg_Inst_write <= '1';  
+                Mux_MEM_sel    <= "00"; 
+                next_state     <= ID_STATE;
+
+            when ID_STATE =>
+                Mem_write      <= '1'; 
+                Reg_Inst_write <= '1'; 
+                Reg_Data_write <= '1'; 
                 
-                case opcode is
-                    when "0000" | "0001" | "0010" => -- ADD, AND, SUB (R-type)
-                        next_state <= S_EXEC_R;
-                    when "0100" | "0101" =>         -- LW, SW (I-type)
-                        next_state <= S_EXEC_I;
-                    when "0110" =>                  -- BEQ
-                        next_state <= S_EXEC_B;
-                    when "1000" =>                  -- JUMP
-                        next_state <= S_EXEC_J;
-                    when others =>
-                        next_state <= S_FETCH;
+                if Opcode = "0100" then
+                    next_state <= JUMP5;
+                else   
+                    next_state <= REGS_STATE;
+                end if;
+
+            -- ESTADO 3: REGS (Leitura e Decis√£o)
+            when REGS_STATE =>
+                Regs_write <= '1'; 
+                
+                case Opcode is
+                    when "0000" => next_state <= ADD_STATE;    -- Add
+                    when "0010" => next_state <= SUB_STATE;    -- Sub
+                    when "0001" => next_state <= AND_STATE;    -- And
+                    when "0100" => next_state <= LOAD10;       -- Load 
+                    when "0101" => next_state <= STORE13;      -- Store
+                    -- Beq (X11X) 
+                    when "0110" | "0111" | "1110" | "1111" => next_state <= BEQ4; 
+                    -- Jump (1XXX) 
+                    when "1000" | "1001" | "1010" | "1011" | "1100" | "1101" => next_state <= JUMP5;
+                    when others => next_state <= IF_STATE; 
                 end case;
 
-            ----------------------------------------------------------------
-            -- CICLO 3: S_EXEC_R (Tipo-R: ADD, AND, SUB)
-            when S_EXEC_R =>
-                ula_out_we <= '1';
-                ALUSrcB    <= '0'; -- operando B vem do reg B
-                alu_sel    <= opcode(2 downto 0); -- usa os 3 LSBs do opcode para selecionar operaÁ„o
-                next_state <= S_WB;
+            when ADD_STATE =>
+                Reg_A_write   <= '1';
+                Reg_B_write   <= '1';
+                ULA_op        <= "00";
+                ULA_out_write <= '1'; 
+                next_state    <= WB_STATE;
 
-            ----------------------------------------------------------------
-            -- CICLO 3: S_EXEC_I (Tipo-I: LW, SW) - calcula endereÁo
-            when S_EXEC_I =>
-                ula_out_we <= '1';
-                ALUSrcB    <= '1'; -- Seleciona Imediato
-                alu_sel    <= "000"; -- ULA faz SOMA (base + immediate)
-                next_state <= S_MEM; 
+            when SUB_STATE =>
+                Reg_A_write   <= '1';
+                Reg_B_write   <= '1';
+                ULA_op        <= "10";
+                ULA_out_write <= '1';
+                next_state    <= WB_STATE;
 
-            ----------------------------------------------------------------
-            -- CICLO 3: S_EXEC_B (BEQ)
-            when S_EXEC_B =>
-                -- A ULA (no seu toplevel) calcula o endereÁo de branch (PC + Imediato)
-                ula_out_we <= '1'; -- salva endereÁo de branch na saÌda da ULA
-                ALUSrcB    <= '1'; -- ULA B = Imediato (PC deve ser conectado como A pelo top)
-                alu_sel    <= "000"; -- soma (PC + offset)
+            when AND_STATE =>
+                Reg_A_write   <= '1';
+                Reg_B_write   <= '1';
+                ULA_op        <= "01"; 
+                ULA_out_write <= '1';
+                next_state    <= WB_STATE;
+
+            -- WB
+            when WB_STATE =>
+                Regs_write   <= '1';      -- Escreve no banco
+                Mux_Data_sel <= '1';      -- Seleciona a ULA para escrever de volta
+                next_state   <= IF_STATE;
+
+            -- Calcula endereco do LOAD
+            when LOAD10 =>
+                Mem_write    <= '1';
+                Mux_MEM_sel  <= "00";
+                next_state   <= LOAD11;
+
+            -- Leitura do dado na mem√≥ria
+            when LOAD11 =>
+                Reg_Data_write <= '1';    -- Salva valor lido no DR
+                Mux_Data_sel   <= '1'; 
+                next_state     <= LOAD12;
+
+            -- WB do load
+            when LOAD12 =>
+                Regs_write   <= '1';       -- Escreve no destino
+                next_state   <= IF_STATE;
+
+            when STORE13 =>
+                Mem_write    <= '1';  
+                Mux_MEM_sel  <= "10";       -- Seleciona endere√ßo correto
+                next_state   <= IF_STATE;
+
+            when BEQ4 => --Acho que falta colocar a parte que o mux_pc recebe o endere√ßo
+                Pc_write     <= '1'; -- Atualiza PC
+                next_state   <= IF_STATE;
                 
-                -- ativa sinais de branch/jump e atualiza PC
-                is_branch  <= '1';
-                pc_we      <= '1';
-                next_state <= S_FETCH; -- ciclo termina aqui (assumindo multiplexagem no PC)
+            when JUMP5 =>
+                Pc_write     <= '1';
+                Mux_PC_sel   <= "11"; -- Seleciona endere√ßo de salto
+                fio_jump     <= '1';
+                next_state   <= IF_STATE;
 
-            ----------------------------------------------------------------
-            -- CICLO 3: S_EXEC_J (JUMP)
-            when S_EXEC_J =>
-                -- Tratamos salto similarmente: ULA_out recebe target (ou bypass)
-                ula_out_we <= '1';
-                ALUSrcB    <= '1'; -- acomodar encaminhamento do imediato como target
-                alu_sel    <= "000"; -- soma com zero / ou outra lÛgica dependendo do toplevel
-                
-                is_jump    <= '1';
-                pc_we      <= '1';
-                next_state <= S_FETCH;
-
-            ----------------------------------------------------------------
-            -- CICLO 4: S_MEM (LW / SW)
-            when S_MEM =>
-                if opcode = "0101" then -- SW
-                    mem_we     <= '1';
-                    next_state <= S_FETCH;
-                else -- LW ("0100")
-                    reg_data_we <= '1';
-                    next_state  <= S_WB;
-                end if;
-
-            ----------------------------------------------------------------
-            -- CICLO 5: S_WB (Write Back - Tipo-R / LW)
-            when S_WB =>
-                regfile_we <= '1';
-                
-                if opcode = "0100" then -- LW
-                    MemToReg <= '1'; -- Dado vem da MemÛria
-                else -- Tipo-R
-                    MemToReg <= '0'; -- Dado vem da ULA
-                end if;
-                
-                next_state <= S_FETCH;
-
+            when others =>
+                next_state <= IDLE;
         end case;
     end process;
-end architecture;
+
+end Behavioral;

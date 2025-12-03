@@ -1,44 +1,40 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
-entity reg_file is
-    port (
-        clk    : in  std_logic;
-        rst    : in  std_logic;
-
-        -- enderecos
-        rs_addr : in std_logic_vector(3 downto 0);  -- registrador fonte 1
-        rt_addr : in std_logic_vector(3 downto 0);  -- registrador fonte 2
-        rd_addr : in std_logic_vector(3 downto 0);  -- registrador destino (escrita)
-
-        -- dados
-        rd_data_in  : in  std_logic_vector(31 downto 0); -- dado para escrever
-        rs_data_out : out std_logic_vector(31 downto 0); -- valor lido de rs
-        rt_data_out : out std_logic_vector(31 downto 0); -- valor lido de rt
-
-        -- controle
-        Write_Enable : in std_logic  -- habilita escrita no registrador destino
+entity Reg_file is
+    Port (
+        clk                  : in  std_logic;
+        rst                  : in  std_logic;
+        escreve_reg          : in  std_logic;                           -- Sinal de controle (RegWrite)
+        leitura_rs           : in  std_logic_vector(3 downto 0);        -- registrador rs
+        leitura_rt           : in  std_logic_vector(3 downto 0);        -- registrador rt
+        endereco_escrita     : in  std_logic_vector(3 downto 0);        -- Endereço escrita (rd ou rt)
+        escreve_dado         : in  std_logic_vector(31 downto 0);       -- Dado a ser gravado
+        leitura_dado1        : out std_logic_vector(31 downto 0);       -- Saída dado 1
+        leitura_dado2        : out std_logic_vector(31 downto 0)        -- Saída dado 2
     );
-end entity;
+end Reg_file;
 
-architecture rtl of reg_file is
-    type reg_array_t is array (0 to 15) of std_logic_vector(31 downto 0);
-    signal regs : reg_array_t := (others => (others => '0'));
+architecture Behavioral of Reg_file is
+
+    type reg_array is array (0 to 15) of std_logic_vector(31 downto 0); --16 registradores de 32 bits
+    signal registers : reg_array := (others => (others => '0'));        -- inicializa com zero todos
 begin
-    -- escrita sincrona
-    process(clk)
+
+    process(clk, rst)
     begin
-        if rising_edge(clk) then
-            if rst = '1' then
-                regs <= (others => (others => '0'));
-            elsif Write_Enable = '1' then
-                regs(to_integer(unsigned(rd_addr))) <= rd_data_in;
+        if rst = '1' then
+            registers <= (others => (others => '0'));
+        elsif rising_edge(clk) then -- Escreve
+            if escreve_reg = '1' and to_integer(unsigned(endereco_escrita)) /= 0 then
+                registers(to_integer(unsigned(endereco_escrita))) <= escreve_dado;
             end if;
         end if;
     end process;
 
-    -- leituras combinacionais
-    rs_data_out <= regs(to_integer(unsigned(rs_addr)));
-    rt_data_out <= regs(to_integer(unsigned(rt_addr)));
-end architecture;
+    -- leitura dos registradores
+    leitura_dado1 <= registers(to_integer(unsigned(leitura_rs)));
+    leitura_dado2 <= registers(to_integer(unsigned(leitura_rt)));
+
+end Behavioral;
