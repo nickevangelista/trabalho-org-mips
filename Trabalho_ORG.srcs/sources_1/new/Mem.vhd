@@ -20,7 +20,7 @@ architecture behavioral of memoria is
     signal mem : mem_tipo :=
     (
     -- Instruções (0 até 511) -- Valores para realizar o testbench
-        0 => x"40188000",  -- LW R1, [512] 
+        0 => x"40280000",  -- LW R1, [512] 
         1 => x"4028C000",  -- LW R2, [513] 
         2 => x"01230000",  -- ADD R3 = R1 + R2 
         3 => x"5038A000",  -- SW R3, [520] 
@@ -32,12 +32,13 @@ architecture behavioral of memoria is
         others => (others => '0')
     );
 begin
-    data_out <= mem(to_integer(unsigned(addr)));
+    --data_out <= mem(to_integer(unsigned(addr)));
+    --data_out <= mem(to_integer(unsigned(addr)));
     process(clk)
     begin
         
         if rising_edge(clk) then
-        
+            data_out <= mem(to_integer(unsigned(addr)));
             -- leitura síncrona/ troquei pra assincrona por causa do problema do clock
             
             

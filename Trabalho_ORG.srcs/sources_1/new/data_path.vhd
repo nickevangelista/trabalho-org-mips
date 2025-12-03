@@ -207,7 +207,7 @@ process(clk, reset)
             
         elsif rising_edge(clk) then  --Atuliza os registradores secundários, faz o caminho dos dados
         
-            if Pc = '1' then 
+            if Pc = '1' and Pc_write = '1'  then
                 Pc_out <= Pc_in;
             end if;
         

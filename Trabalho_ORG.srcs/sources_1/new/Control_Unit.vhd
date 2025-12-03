@@ -10,7 +10,7 @@ entity ControlUnit is
         
         -- Saídas para o Data Path 
         Pc_write        : out std_logic;                        -- Controle do PC
-        Mem_write       : out std_logic;                        -- Controle da Memória
+        Mem_write       : out std_logic;                        -- Controle da Memória                       
         Regs_write      : out std_logic;                        -- Controle do Banco de Regs
         ULA_op          : out std_logic_vector(1 downto 0);     -- ULA (00-add, 01-sub, 10-and)
         Reg_Inst_write  : out std_logic;                        -- IR
@@ -80,25 +80,24 @@ begin
 
             when IF_STATE =>
                 Pc_write       <= '1';  
-                Mem_write      <= '1';  
-                Reg_Inst_write <= '1';  
-                Mux_MEM_sel    <= "00"; 
+                Mem_write      <= '0';  
+                Reg_Inst_write <= '0';  
+                Mux_MEM_sel    <= "01"; 
                 next_state     <= ID_STATE;
 
             when ID_STATE =>
-                Mem_write      <= '1'; 
+                Mem_write      <= '0'; 
                 Reg_Inst_write <= '1'; 
-                Reg_Data_write <= '1'; 
-                
-                if Opcode = "0100" then
-                    next_state <= JUMP5;
-                else   
-                    next_state <= REGS_STATE;
-                end if;
+                Reg_Data_write <= '1';
+                next_state <= REGS_STATE;
+                Pc_write <= '0';
 
-            -- ESTADO 3: REGS (Leitura e Decisão)
+            -- ESTADO 3: REGS (Leitura e Decisão) VER COM A DEBORA, NAO ENTENDEMOS MUITO BEM COMO IMPLEMENTAR ESSA PARTE
             when REGS_STATE =>
-                Regs_write <= '1'; 
+                Regs_write <= '1';
+                Reg_Inst_write <= '0';
+                Reg_Data_write <= '0';
+                Mem_write <= '0';
                 
                 case Opcode is
                     when "0000" => next_state <= ADD_STATE;    -- Add
@@ -142,7 +141,7 @@ begin
 
             -- Calcula endereco do LOAD
             when LOAD10 =>
-                Mem_write    <= '1';
+                Mem_write    <= '0'; --Habilita pegar algo/colocar algo na memoria
                 Mux_MEM_sel  <= "00";
                 next_state   <= LOAD11;
 

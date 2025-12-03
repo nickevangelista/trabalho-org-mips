@@ -4,9 +4,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity TopLevel is
     Port (
         clk         : in  STD_LOGIC;
-        reset       : in  STD_LOGIC;
-        Monitor_ULA : out STD_LOGIC_VECTOR(31 downto 0);
-        Monitor_PC  : out STD_LOGIC_VECTOR(9 downto 0)
+        reset       : in  STD_LOGIC
     );
 end TopLevel;
 
@@ -43,6 +41,7 @@ begin
             Mem             => s_mem_write,
             Regs            => s_regs_write,
             ULA_sign        => s_ula_op,
+            ULA_Write       => s_ula_out_write,
             Reg_Inst        => s_reg_inst_write,
             Reg_Data        => s_reg_data_write,
             Mux_Data_sign   => s_mux_data_sel,
@@ -50,7 +49,6 @@ begin
             Reg_B           => s_reg_b_write,
             Mux_PC_sign     => s_mux_pc_sel,
             Mux_MEM_sign    => s_mux_mem_sel,
-            ULA_Write       => s_ula_out_write,
             fio_jump        => s_fio_jump,
             
             -- Sinal de sáida para a UC
