@@ -1,0 +1,15 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../Trabalho_ORG.srcs/sources_1/new/Mem.vhd" \
+"../../../../Trabalho_ORG.srcs/sources_1/new/Mux_Data.vhd" \
+"../../../../Trabalho_ORG.srcs/sources_1/new/Mux_Mem.vhd" \
+"../../../../Trabalho_ORG.srcs/sources_1/new/Mux_Pc1.vhd" \
+"../../../../Trabalho_ORG.srcs/sources_1/new/Reg_File.vhd" \
+"../../../../Trabalho_ORG.srcs/sources_1/new/Somador_PC_4.vhd" \
+"../../../../Trabalho_ORG.srcs/sources_1/new/data_path.vhd" \
+"../../../../Trabalho_ORG.srcs/sources_1/new/ULA.vhd" \
+"../../../../Trabalho_ORG.srcs/sources_1/new/subtrator.vhd" \
+"../../../../Trabalho_ORG.srcs/sim_1/new/TB_SOMA_TESTE.vhd" \
+
+# Do not sort compile order
+nosort

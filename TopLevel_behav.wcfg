@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_datapath_soma_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="tb_datapath_soma" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="230.511 ns"></ZoomEndTime>
+      <Cursor1Time time="0.400 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="76"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="28" />
+   <wvobject fp_name="/tb_datapath_soma/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/Pc" type="logic">
+      <obj_property name="ElementShortName">Pc</obj_property>
+      <obj_property name="ObjectShortName">Pc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/Mem" type="logic">
+      <obj_property name="ElementShortName">Mem</obj_property>
+      <obj_property name="ObjectShortName">Mem</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/Regs" type="logic">
+      <obj_property name="ElementShortName">Regs</obj_property>
+      <obj_property name="ObjectShortName">Regs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/ULA_sign" type="array">
+      <obj_property name="ElementShortName">ULA_sign[1:0]</obj_property>
+      <obj_property name="ObjectShortName">ULA_sign[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/ULA_Write" type="logic">
+      <obj_property name="ElementShortName">ULA_Write</obj_property>
+      <obj_property name="ObjectShortName">ULA_Write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/Reg_Inst" type="logic">
+      <obj_property name="ElementShortName">Reg_Inst</obj_property>
+      <obj_property name="ObjectShortName">Reg_Inst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/Reg_Data" type="logic">
+      <obj_property name="ElementShortName">Reg_Data</obj_property>
+      <obj_property name="ObjectShortName">Reg_Data</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/Reg_A" type="logic">
+      <obj_property name="ElementShortName">Reg_A</obj_property>
+      <obj_property name="ObjectShortName">Reg_A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/Reg_B" type="logic">
+      <obj_property name="ElementShortName">Reg_B</obj_property>
+      <obj_property name="ObjectShortName">Reg_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/Mux_Data_sign" type="logic">
+      <obj_property name="ElementShortName">Mux_Data_sign</obj_property>
+      <obj_property name="ObjectShortName">Mux_Data_sign</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/Mux_PC_sign" type="array">
+      <obj_property name="ElementShortName">Mux_PC_sign[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Mux_PC_sign[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/Mux_MEM_sign" type="array">
+      <obj_property name="ElementShortName">Mux_MEM_sign[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Mux_MEM_sign[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/fio_jump" type="logic">
+      <obj_property name="ElementShortName">fio_jump</obj_property>
+      <obj_property name="ObjectShortName">fio_jump</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/Opcode_out" type="array">
+      <obj_property name="ElementShortName">Opcode_out[3:0]</obj_property>
+      <obj_property name="ObjectShortName">Opcode_out[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/clk_period" type="other">
+      <obj_property name="ElementShortName">clk_period</obj_property>
+      <obj_property name="ObjectShortName">clk_period</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/uut/IR" type="array">
+      <obj_property name="ElementShortName">IR[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IR[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/uut/A" type="array">
+      <obj_property name="ElementShortName">A[31:0]</obj_property>
+      <obj_property name="ObjectShortName">A[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/uut/B" type="array">
+      <obj_property name="ElementShortName">B[31:0]</obj_property>
+      <obj_property name="ObjectShortName">B[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/uut/ULA_OUT" type="array">
+      <obj_property name="ElementShortName">ULA_OUT[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ULA_OUT[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/uut/Reg_Data1" type="array">
+      <obj_property name="ElementShortName">Reg_Data1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Reg_Data1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/uut/Reg_Data2" type="array">
+      <obj_property name="ElementShortName">Reg_Data2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Reg_Data2[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/uut/Mux_Data_OUT" type="array">
+      <obj_property name="ElementShortName">Mux_Data_OUT[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Mux_Data_OUT[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/uut/MEM_ADR" type="array">
+      <obj_property name="ElementShortName">MEM_ADR[9:0]</obj_property>
+      <obj_property name="ObjectShortName">MEM_ADR[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/uut/MEM_OUT" type="array">
+      <obj_property name="ElementShortName">MEM_OUT[31:0]</obj_property>
+      <obj_property name="ObjectShortName">MEM_OUT[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/uut/PC_in" type="array">
+      <obj_property name="ElementShortName">PC_in[9:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_in[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_datapath_soma/uut/PC_out" type="array">
+      <obj_property name="ElementShortName">PC_out[9:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_out[9:0]</obj_property>
+   </wvobject>
+</wave_config>
