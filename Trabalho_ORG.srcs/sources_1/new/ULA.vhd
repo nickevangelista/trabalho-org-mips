@@ -20,10 +20,10 @@ begin
             when "00" =>   -- ADD
                 res := signed(a) + signed(b);
 
-            when "01" =>   -- SUB
+            when "10" =>   -- SUB
                 res := signed(a) - signed(b);
 
-            when "10" =>   -- AND
+            when "01" =>   -- AND
                 res := signed(a and b);
 
             when others =>

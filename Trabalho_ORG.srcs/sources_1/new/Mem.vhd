@@ -19,16 +19,43 @@ architecture behavioral of memoria is
     
     signal mem : mem_tipo :=
     (
-    -- Instruções (0 até 511) -- Valores para realizar o testbench
-        0 => x"40280000",  -- LW R1, [512] 
-        1 => x"4028C000",  -- LW R2, [513] 
-        2 => x"01230000",  -- ADD R3 = R1 + R2 
-        3 => x"5038A000",  -- SW R3, [520] 
+    -- === INÍCIO DO PROGRAMA (Endereço 0) ===
+        
+        -- 1. SETUP: Carregar valores
+        0 => x"40180000", -- LW R1, [512]  -> R1 = 10 (0xA)
+        1 => x"40280400", -- LW R2, [513]  -> R2 = 5  (0x5)
+        
+        -- 2. ARITMÉTICA (R-Type)
+        2 => x"01230000", -- ADD R3, R1, R2 -> R3 = 10 + 5 = 15 (0xF)
+        3 => x"21240000", -- SUB R4, R1, R2 -> R4 = 10 - 5 = 5  (0x5)
+        
+        -- 3. MEMÓRIA (Store Normal)
+        -- Salva o resultado do ADD (R3=15) no endereço 514
+        -- End 514 (0x202) -> Bits 19-10: 10 0000 0010 -> Hex digitos: 8 0 8
+        4 => x"50380800", -- STORE R3, [514] -> Mem[514] = 15
+        
+        -- 4. INSTRUÇÃO CUSTOMIZADA (SADD)
+        -- SADD R1, R2, [515]. Soma R1(10) + R2(5) = 15 e salva no endereço 515.
+        -- End 515 (0x203) -> Bits 19-10: 10 0000 0011 -> Hex digitos: 8 0 C
+        5 => x"31280C00", -- SADD: Mem[515] = 10 + 5
+        
+        -- 5. BRANCH (BEQ)
+        -- Compara R1(10) com R1(10). São iguais. Deve pular para instrução 8.
+        -- End 8 (0x008) -> Bits 19-10: 00 0000 1000 -> Hex digitos: 0 2 0
+        6 => x"61102800", -- BEQ R1, R1, para Endereço 10
+        
+        -- 6. INSTRUÇÃO "LIXO" (Deve ser pulada se o BEQ funcionar)
+        7 => x"21110000", -- SUB R1, R1, R1 -> Se executar, R1 vira 0 (ERRO!)
 
-    -- DADOS (endereços 512 e 513)
-        512 => x"0000000A", -- valor 10
-        513 => x"00000005", -- valor 5
+        -- 7. ALVO DO BRANCH e JUMP
+        -- Endereço 8. Vamos fazer um JUMP para travar o processador aqui (Loop Infinito)
+        -- JUMP para endereço 8.
+        10 => x"80280000", -- JUMP 10 (Loop infinito)
 
+        -- === DADOS ===
+        512 => x"0000000A", -- Valor 10
+        513 => x"00000005", -- Valor 5
+        
         others => (others => '0')
     );
 begin

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7k70tfbv676-1" LaunchTime="1764766252" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/data_path.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7k70tfbv676-1" LaunchTime="1765128281" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/data_path.dcp">
+  <File Type="PA-TCL" Name="TopLevel.tcl"/>
   <File Type="REPORTS-TCL" Name="TopLevel_reports.tcl"/>
+  <File Type="RDS-RDS" Name="TopLevel.vds"/>
+  <File Type="RDS-PROPCONSTRS" Name="TopLevel_drc_synth.rpt"/>
   <File Type="RDS-UTIL" Name="TopLevel_utilization_synth.rpt"/>
   <File Type="RDS-UTIL-PB" Name="TopLevel_utilization_synth.pb"/>
-  <File Type="PA-TCL" Name="TopLevel.tcl"/>
-  <File Type="RDS-RDS" Name="TopLevel.vds"/>
   <File Type="RDS-DCP" Name="TopLevel.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="TopLevel_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="TopLevel_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/new/Control_Unit.vhd">
@@ -101,7 +104,9 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
+      <Desc>Vivado Synthesis Defaults</Desc>
+    </StratHandle>
     <Step Id="synth_design"/>
   </Strategy>
 </GenRun>

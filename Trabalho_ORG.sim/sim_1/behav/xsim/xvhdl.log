@@ -1,6 +1,6 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mem.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'memoria'
 INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd" into library xil_defaultlib
 INFO: [VRFC 10-3107] analyzing entity 'data_path'
-ERROR: [VRFC 10-2989] 'pc_write' is not declared [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd:210]
-ERROR: [VRFC 10-2123] 0 definitions of operator "and" match here [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd:210]
-ERROR: [VRFC 10-9458] unit 'behavioral' is ignored due to previous errors [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd:26]
-INFO: [VRFC 10-8704] VHDL file 'C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd' is ignored due to errors
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/TopLevel.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'TopLevel'

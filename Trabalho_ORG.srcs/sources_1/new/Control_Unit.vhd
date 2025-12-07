@@ -6,6 +6,7 @@ entity ControlUnit is
         clk             : in  std_logic;
         reset           : in  std_logic;
         
+        Zero            : in  std_logic;
         Opcode          : in  std_logic_vector(3 downto 0); 
         
         -- Saídas para o Data Path 
@@ -21,6 +22,7 @@ entity ControlUnit is
         Mux_PC_sel      : out std_logic_vector(1 downto 0);     -- Mux PC(
         Mux_MEM_sel     : out std_logic_vector(1 downto 0);     -- Mux MEM
         ULA_out_write   : out std_logic;                        -- Controle do registrador de saída da ULA
+        Store_Source_sel : out std_logic;
         fio_jump        : out std_Logic
     );
 end ControlUnit;
@@ -41,7 +43,8 @@ architecture Behavioral of ControlUnit is
         LOAD12,     -- WB do load
         STORE13,    
         BEQ4,       
-        JUMP5       
+        JUMP5,
+        SADD_STATE       
     );
     
     signal current_state, next_state : state_type;
@@ -71,7 +74,10 @@ begin
         Reg_B_write    <= '0';
         Mux_PC_sel     <= "00";
         Mux_MEM_sel    <= "00";
-        ULA_out_write  <= '0'; 
+        ULA_out_write  <= '0';
+        -- adicionei esse negocio por que o fio jump tava uninitialized no clock
+        fio_jump       <= '0';
+        Store_Source_sel <= '0';
 
         case current_state is
             
@@ -94,10 +100,12 @@ begin
 
             -- ESTADO 3: REGS (Leitura e Decisão) VER COM A DEBORA, NAO ENTENDEMOS MUITO BEM COMO IMPLEMENTAR ESSA PARTE
             when REGS_STATE =>
-                Regs_write <= '1';
+                Regs_write <= '0';
                 Reg_Inst_write <= '0';
                 Reg_Data_write <= '0';
                 Mem_write <= '0';
+                Reg_A_write    <= '1';
+                Reg_B_write    <= '1';
                 
                 case Opcode is
                     when "0000" => next_state <= ADD_STATE;    -- Add
@@ -105,6 +113,7 @@ begin
                     when "0001" => next_state <= AND_STATE;    -- And
                     when "0100" => next_state <= LOAD10;       -- Load 
                     when "0101" => next_state <= STORE13;      -- Store
+                    when "0011" => next_state <= SADD_STATE; -- Opcode 3 = SADD
                     -- Beq (X11X) 
                     when "0110" | "0111" | "1110" | "1111" => next_state <= BEQ4; 
                     -- Jump (1XXX) 
@@ -113,8 +122,8 @@ begin
                 end case;
 
             when ADD_STATE =>
-                Reg_A_write   <= '1';
-                Reg_B_write   <= '1';
+                Reg_A_write   <= '0';
+                Reg_B_write   <= '0';
                 ULA_op        <= "00";
                 ULA_out_write <= '1'; 
                 next_state    <= WB_STATE;
@@ -158,11 +167,28 @@ begin
 
             when STORE13 =>
                 Mem_write    <= '1';  
-                Mux_MEM_sel  <= "10";       -- Seleciona endereço correto
+                Mux_MEM_sel  <= "00";       -- Seleciona endereço correto
                 next_state   <= IF_STATE;
 
             when BEQ4 => --Acho que falta colocar a parte que o mux_pc recebe o endereço
-                Pc_write     <= '1'; -- Atualiza PC
+                -- 1. Configura a ULA para SUBTRAIR (gera a flag Zero)
+                -- (Estou assumindo que "10" é subtração, baseado no seu SUB_STATE)
+                ULA_op <= "10"; 
+
+                -- 2. Verifica a condição
+                if (Zero = '1') then
+                    Pc_write     <= '1';  -- Habilita a escrita no PC AGORA
+                    
+                    -- ATENÇÃO: Verifique no seu Datapath qual porta do Mux do PC 
+                    -- recebe o endereço calculado do desvio (Branch Target).
+                    -- Geralmente é "01" ou "10". Vou colocar "01" como exemplo.
+                    Mux_PC_sel   <= "01"; 
+                else
+                    -- Se não for igual, não escreve nada.
+                    -- O PC mantém o valor (PC + 1) que já foi calculado no Fetch.
+                    Pc_write     <= '0';
+                    Mux_PC_sel   <= "00";
+                end if;
                 next_state   <= IF_STATE;
                 
             when JUMP5 =>
@@ -170,7 +196,21 @@ begin
                 Mux_PC_sel   <= "11"; -- Seleciona endereço de salto
                 fio_jump     <= '1';
                 next_state   <= IF_STATE;
+            
+            when SADD_STATE =>
+                -- 1. Configura ULA para SOMAR
+                ULA_op <= "00"; 
 
+                -- 2. Define o endereço da memória (Pega do Imediato, bits 19-10)
+                Mux_MEM_sel <= "00"; 
+
+                -- 3. Habilita escrita na Memória
+                Mem_write <= '1';
+
+                -- 4. A MÁGICA: Escolhe o dado vindo da ULA, não do RegB
+                Store_Source_sel <= '1'; 
+
+                next_state <= IF_STATE;
             when others =>
                 next_state <= IDLE;
         end case;

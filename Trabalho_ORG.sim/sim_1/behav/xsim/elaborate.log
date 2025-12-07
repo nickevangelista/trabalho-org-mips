@@ -1,7 +1,7 @@
 Vivado Simulator v2025.2
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
-Running: C:/AMDDesignTools/2025.2/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot tb_datapath_soma_behav xil_defaultlib.tb_datapath_soma -log elaborate.log 
+Running: C:/AMDDesignTools/2025.2/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot TB_TopLevel_behav xil_defaultlib.TB_TopLevel -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
 Completed static elaboration
@@ -23,5 +23,7 @@ Compiling architecture behavioral of entity xil_defaultlib.memoria [memoria_defa
 Compiling architecture behavioral of entity xil_defaultlib.mux_data [mux_data_default]
 Compiling architecture behavioral of entity xil_defaultlib.subtrator [subtrator_default]
 Compiling architecture behavioral of entity xil_defaultlib.data_path [data_path_default]
-Compiling architecture behavior of entity xil_defaultlib.tb_datapath_soma
-Built simulation snapshot tb_datapath_soma_behav
+Compiling architecture behavioral of entity xil_defaultlib.ControlUnit [controlunit_default]
+Compiling architecture behavioral of entity xil_defaultlib.TopLevel [toplevel_default]
+Compiling architecture sim of entity xil_defaultlib.tb_toplevel
+Built simulation snapshot TB_TopLevel_behav

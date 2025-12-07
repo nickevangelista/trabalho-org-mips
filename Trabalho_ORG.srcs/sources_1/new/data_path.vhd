@@ -19,7 +19,9 @@ entity data_path is
         Mux_PC_sign     :in std_logic_vector(1 downto 0);
         Mux_MEM_sign    :in std_Logic_vector(1 downto 0);
         fio_jump        :in std_logic;
-        Opcode_out      :out std_logic_vector(3 downto 0)
+        Zero_out        :out std_logic;
+        Opcode_out      :out std_logic_vector(3 downto 0);
+        Store_Source    :in std_logic   
         );
 end data_path;
     
@@ -154,7 +156,7 @@ end component;
     signal Next_Pc_target       : std_Logic_vector(9 downto 0);
     signal beq_enable           :std_logic;
     signal verifica_beq_total   :std_logic;
-
+    signal s_mem_data_in        : std_logic_vector(31 downto 0);
 
 begin
     IR_OUT       <= IR;
@@ -163,6 +165,8 @@ begin
     RegB_OUT     <= B;
     ULA_OUT_sign <= ULA_OUT;
     Opcode_out <= opcode;
+    Zero_out <= zero_BEQ;
+    s_mem_data_in <= RegB_OUT when Store_Source = '0' else ULA_Result;
 
     opcode <= IR(31 downto 28);
     rs     <= IR(27 downto 24);
@@ -207,7 +211,7 @@ process(clk, reset)
             
         elsif rising_edge(clk) then  --Atuliza os registradores secundários, faz o caminho dos dados
         
-            if Pc = '1' and Pc_write = '1'  then
+            if Pc = '1'  then
                 Pc_out <= Pc_in;
             end if;
         
@@ -216,7 +220,7 @@ process(clk, reset)
             end if;
             
             if Reg_data = '1' then  
-                DR <= Mux_Data_OUT;
+                DR <= MEM_OUT;
             end if;
             
             if Reg_A = '1' then 
@@ -283,7 +287,7 @@ Mem_Instancia : memoria --TIRAR DUVIDA COM A DEBORA , COMO FAZER PRA QUANDO FOR 
               clk              => clk,
               verifica_escrita => Mem,
               addr             => MEM_ADR,
-              data_in          => RegB_OUT,
+              data_in          => s_mem_data_in,
               data_out         => MEM_OUT
              );            
             

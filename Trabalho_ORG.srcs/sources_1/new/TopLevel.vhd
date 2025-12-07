@@ -24,9 +24,11 @@ architecture Behavioral of TopLevel is
     signal s_mux_mem_sel    : std_logic_vector(1 downto 0);
     signal s_ula_out_write  : std_logic;
     signal s_fio_jump       : std_logic;
+    signal s_store_source   : std_logic;
 
     -- Sinal que sai do datapath e entra na UC
     signal s_opcode         : std_logic_vector(3 downto 0);
+    signal s_zero_flag      : std_logic;
     
 
 begin
@@ -49,7 +51,9 @@ begin
             Reg_B           => s_reg_b_write,
             Mux_PC_sign     => s_mux_pc_sel,
             Mux_MEM_sign    => s_mux_mem_sel,
+            Zero_out        => s_zero_flag,
             fio_jump        => s_fio_jump,
+            Store_Source    => s_store_source,
             
             -- Sinal de sáida para a UC
             Opcode_out      => s_opcode
@@ -63,21 +67,23 @@ begin
             
             --Entrada
             Opcode          => s_opcode,
+            Zero            => s_zero_flag,
             
             -- Saídas 
-            Pc_write        => s_pc_write,
-            Mem_write       => s_mem_write,
-            Regs_write      => s_regs_write,
-            ULA_op          => s_ula_op,
-            Reg_Inst_write  => s_reg_inst_write,
-            Reg_Data_write  => s_reg_data_write,
-            Mux_Data_sel    => s_mux_data_sel,
-            Reg_A_write     => s_reg_a_write,
-            Reg_B_write     => s_reg_b_write,
-            Mux_PC_sel      => s_mux_pc_sel,
-            Mux_MEM_sel     => s_mux_mem_sel,
-            ULA_out_write   => s_ula_out_write,
-            fio_jump        => s_fio_jump
+            Pc_write         => s_pc_write,
+            Mem_write        => s_mem_write,
+            Regs_write       => s_regs_write,
+            ULA_op           => s_ula_op,
+            Reg_Inst_write   => s_reg_inst_write,
+            Reg_Data_write   => s_reg_data_write,
+            Mux_Data_sel     => s_mux_data_sel,
+            Reg_A_write      => s_reg_a_write,
+            Reg_B_write      => s_reg_b_write,
+            Mux_PC_sel       => s_mux_pc_sel,
+            Mux_MEM_sel      => s_mux_mem_sel,
+            ULA_out_write    => s_ula_out_write,
+            Store_Source_sel => s_store_source,
+            fio_jump         => s_fio_jump
         );
 
 end Behavioral;

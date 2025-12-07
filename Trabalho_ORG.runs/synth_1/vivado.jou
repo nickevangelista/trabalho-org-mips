@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Wed Dec  3 09:50:54 2025
-# Process ID         : 28780
+# Start of session at: Sun Dec  7 14:24:43 2025
+# Process ID         : 38748
 # Current directory  : C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.runs/synth_1
 # Command line       : vivado.exe -log TopLevel.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source TopLevel.tcl
 # Log file           : C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.runs/synth_1/TopLevel.vds
@@ -19,6 +19,6 @@
 # Host memory        : 16897 MB
 # Swap memory        : 24696 MB
 # Total Virtual      : 41593 MB
-# Available Virtual  : 15061 MB
+# Available Virtual  : 4139 MB
 #-----------------------------------------------------------
 source TopLevel.tcl -notrace
