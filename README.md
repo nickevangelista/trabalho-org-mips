@@ -32,6 +32,8 @@ Each signal defines how the processor behaves during the five execution stages: 
 ![Parte Operativa do Trabalho de ORG](datapathDiagram.png)
 ## Design Challenge
 The chosen design challenge was to implement a working multicyle MIPS processor with 16 registers, maintaining full support for all six instruction types and proper control signal sequencing.
+## Instruction Challenge
+Created a new instruction called SADD that does STORE + ADD in only one instruction.
 ## Collaborators
 - Nícolas Evangelista (@nickevangelista)
 - Lorenzo Schaffer (@Leperes04)
