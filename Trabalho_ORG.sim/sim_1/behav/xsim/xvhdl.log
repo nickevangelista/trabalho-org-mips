@@ -1,6 +1,0 @@
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mem.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'memoria'
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'data_path'
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/TopLevel.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'TopLevel'
