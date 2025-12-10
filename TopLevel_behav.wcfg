@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="TB_TopLevel_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="TB_TopLevel" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="20.030 ns"></ZoomStartTime>
+      <ZoomEndTime time="448.031 ns"></ZoomEndTime>
+      <Cursor1Time time="90.167 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="135"></NameColumnWidth>
+      <ValueColumnWidth column_width="61"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="31" />
+   <wvobject fp_name="/TB_TopLevel/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_pc_write" type="logic">
+      <obj_property name="ElementShortName">s_pc_write</obj_property>
+      <obj_property name="ObjectShortName">s_pc_write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/PC_in" type="array">
+      <obj_property name="ElementShortName">PC_in[9:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_in[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/PC_out" type="array">
+      <obj_property name="ElementShortName">PC_out[9:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_out[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/IR" type="array">
+      <obj_property name="ElementShortName">IR[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IR[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/Zero_out" type="logic">
+      <obj_property name="ElementShortName">Zero_out</obj_property>
+      <obj_property name="ObjectShortName">Zero_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/RegA_OUT" type="array">
+      <obj_property name="ElementShortName">RegA_OUT[31:0]</obj_property>
+      <obj_property name="ObjectShortName">RegA_OUT[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/RegB_OUT" type="array">
+      <obj_property name="ElementShortName">RegB_OUT[31:0]</obj_property>
+      <obj_property name="ObjectShortName">RegB_OUT[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_mem_write" type="logic">
+      <obj_property name="ElementShortName">s_mem_write</obj_property>
+      <obj_property name="ObjectShortName">s_mem_write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_regs_write" type="logic">
+      <obj_property name="ElementShortName">s_regs_write</obj_property>
+      <obj_property name="ObjectShortName">s_regs_write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_ula_op" type="array">
+      <obj_property name="ElementShortName">s_ula_op[1:0]</obj_property>
+      <obj_property name="ObjectShortName">s_ula_op[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_reg_inst_write" type="logic">
+      <obj_property name="ElementShortName">s_reg_inst_write</obj_property>
+      <obj_property name="ObjectShortName">s_reg_inst_write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_reg_data_write" type="logic">
+      <obj_property name="ElementShortName">s_reg_data_write</obj_property>
+      <obj_property name="ObjectShortName">s_reg_data_write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_mux_data_sel" type="logic">
+      <obj_property name="ElementShortName">s_mux_data_sel</obj_property>
+      <obj_property name="ObjectShortName">s_mux_data_sel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_reg_a_write" type="logic">
+      <obj_property name="ElementShortName">s_reg_a_write</obj_property>
+      <obj_property name="ObjectShortName">s_reg_a_write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/Reg_A" type="logic">
+      <obj_property name="ElementShortName">Reg_A</obj_property>
+      <obj_property name="ObjectShortName">Reg_A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_reg_b_write" type="logic">
+      <obj_property name="ElementShortName">s_reg_b_write</obj_property>
+      <obj_property name="ObjectShortName">s_reg_b_write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/Reg_B" type="logic">
+      <obj_property name="ElementShortName">Reg_B</obj_property>
+      <obj_property name="ObjectShortName">Reg_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_mux_pc_sel" type="array">
+      <obj_property name="ElementShortName">s_mux_pc_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">s_mux_pc_sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_mux_mem_sel" type="array">
+      <obj_property name="ElementShortName">s_mux_mem_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">s_mux_mem_sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_ula_out_write" type="logic">
+      <obj_property name="ElementShortName">s_ula_out_write</obj_property>
+      <obj_property name="ObjectShortName">s_ula_out_write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_fio_jump" type="logic">
+      <obj_property name="ElementShortName">s_fio_jump</obj_property>
+      <obj_property name="ObjectShortName">s_fio_jump</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/s_opcode" type="array">
+      <obj_property name="ElementShortName">s_opcode[3:0]</obj_property>
+      <obj_property name="ObjectShortName">s_opcode[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/opcode" type="array">
+      <obj_property name="ElementShortName">opcode[3:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/MEM_ADR" type="array">
+      <obj_property name="ElementShortName">MEM_ADR[9:0]</obj_property>
+      <obj_property name="ObjectShortName">MEM_ADR[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/Ula_Instancia/result" type="array">
+      <obj_property name="ElementShortName">result[31:0]</obj_property>
+      <obj_property name="ObjectShortName">result[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/Mem_Instancia/data_in" type="array">
+      <obj_property name="ElementShortName">data_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_in[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/Mem_Instancia/mem" type="array">
+      <obj_property name="ElementShortName">mem[0:1023][31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem[0:1023][31:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/addr_J" type="array">
+      <obj_property name="ElementShortName">addr_J[9:0]</obj_property>
+      <obj_property name="ObjectShortName">addr_J[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/Reg_File_Instancia/registradores" type="array">
+      <obj_property name="ElementShortName">registradores[0:15][31:0]</obj_property>
+      <obj_property name="ObjectShortName">registradores[0:15][31:0]</obj_property>
+   </wvobject>
+</wave_config>

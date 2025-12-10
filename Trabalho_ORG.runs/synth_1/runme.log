@@ -1,0 +1,355 @@
+
+*** Running vivado
+    with args -log TopLevel.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source TopLevel.tcl
+
+
+
+****** Vivado v2025.2 (64-bit)
+  **** SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+  **** IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+  **** SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+  **** Start of session at: Wed Dec  3 09:50:54 2025
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source TopLevel.tcl -notrace
+create_project: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 529.148 ; gain = 220.098
+Command: read_checkpoint -auto_incremental -incremental C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/utils_1/imports/synth_1/data_path.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/utils_1/imports/synth_1/data_path.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top TopLevel -part xc7k70tfbv676-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7k70t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k70t'
+WARNING: [Vivado_Tcl 4-1809] The reference checkpoint is from an old version of Vivado; A full resynthesis flow will be run
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 35428
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1075.371 ; gain = 533.945
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'TopLevel' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/TopLevel.vhd:13]
+INFO: [Synth 8-638] synthesizing module 'data_path' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd:26]
+INFO: [Synth 8-3491] module 'somador_PC_4' declared at 'C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Somador_PC_4.vhd:5' bound to instance 'Somador_pc' of component 'Somador_PC_4' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd:236]
+INFO: [Synth 8-638] synthesizing module 'somador_PC_4' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Somador_PC_4.vhd:12]
+INFO: [Synth 8-256] done synthesizing module 'somador_PC_4' (0#1) [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Somador_PC_4.vhd:12]
+INFO: [Synth 8-3491] module 'ula' declared at 'C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/ULA.vhd:5' bound to instance 'Ula_Instancia' of component 'ula' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd:242]
+INFO: [Synth 8-638] synthesizing module 'ula' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/ULA.vhd:14]
+INFO: [Synth 8-256] done synthesizing module 'ula' (0#1) [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/ULA.vhd:14]
+INFO: [Synth 8-3491] module 'Reg_file' declared at 'C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Reg_File.vhd:5' bound to instance 'Reg_File_Instancia' of component 'Reg_File' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd:250]
+INFO: [Synth 8-638] synthesizing module 'Reg_file' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Reg_File.vhd:19]
+INFO: [Synth 8-256] done synthesizing module 'Reg_file' (0#1) [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Reg_File.vhd:19]
+INFO: [Synth 8-3491] module 'Mux_MEM' declared at 'C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mux_Mem.vhd:4' bound to instance 'Mux_Mem_Instancia' of component 'mux_MEM' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd:263]
+INFO: [Synth 8-638] synthesizing module 'Mux_MEM' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mux_Mem.vhd:14]
+INFO: [Synth 8-256] done synthesizing module 'Mux_MEM' (0#1) [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mux_Mem.vhd:14]
+INFO: [Synth 8-3491] module 'Mux_Pc1' declared at 'C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mux_Pc1.vhd:4' bound to instance 'Mux_Pc_Instancia' of component 'Mux_pc1' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd:272]
+INFO: [Synth 8-638] synthesizing module 'Mux_Pc1' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mux_Pc1.vhd:14]
+INFO: [Synth 8-256] done synthesizing module 'Mux_Pc1' (0#1) [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mux_Pc1.vhd:14]
+INFO: [Synth 8-3491] module 'memoria' declared at 'C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mem.vhd:5' bound to instance 'Mem_Instancia' of component 'Memoria' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd:281]
+INFO: [Synth 8-638] synthesizing module 'memoria' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mem.vhd:15]
+INFO: [Synth 8-256] done synthesizing module 'memoria' (0#1) [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mem.vhd:15]
+INFO: [Synth 8-3491] module 'mux_data' declared at 'C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mux_Data.vhd:4' bound to instance 'Mux_data_Instancia' of component 'Mux_Data' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd:290]
+INFO: [Synth 8-638] synthesizing module 'mux_data' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mux_Data.vhd:13]
+INFO: [Synth 8-256] done synthesizing module 'mux_data' (0#1) [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mux_Data.vhd:13]
+INFO: [Synth 8-3491] module 'subtrator' declared at 'C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/subtrator.vhd:5' bound to instance 'Subtrator_Instancia' of component 'Subtrator' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd:298]
+INFO: [Synth 8-638] synthesizing module 'subtrator' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/subtrator.vhd:13]
+INFO: [Synth 8-256] done synthesizing module 'subtrator' (0#1) [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/subtrator.vhd:13]
+INFO: [Synth 8-256] done synthesizing module 'data_path' (0#1) [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd:26]
+INFO: [Synth 8-638] synthesizing module 'ControlUnit' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Control_Unit.vhd:28]
+INFO: [Synth 8-256] done synthesizing module 'ControlUnit' (0#1) [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Control_Unit.vhd:28]
+INFO: [Synth 8-256] done synthesizing module 'TopLevel' (0#1) [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/TopLevel.vhd:13]
+WARNING: [Synth 8-3848] Net Monitor_ULA in module/entity TopLevel does not have driver. [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/TopLevel.vhd:8]
+WARNING: [Synth 8-3848] Net Monitor_PC in module/entity TopLevel does not have driver. [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/TopLevel.vhd:9]
+WARNING: [Synth 8-7129] Port Mux_PC_sign[1] in module data_path is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Mux_PC_sign[0] in module data_path is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[31] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[30] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[29] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[28] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[27] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[26] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[25] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[24] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[23] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[22] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[21] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[20] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[19] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[18] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[17] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[16] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[15] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[14] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[13] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[12] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[11] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[10] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[9] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[8] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[7] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[6] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[5] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[4] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[3] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[2] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[1] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[0] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[9] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[8] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[7] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[6] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[5] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[4] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[3] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[2] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[1] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[0] in module TopLevel is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 1196.559 ; gain = 655.133
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 1196.559 ; gain = 655.133
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7k70tfbv676-1
+INFO: [Device 21-403] Loading part xc7k70tfbv676-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 1196.559 ; gain = 655.133
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'current_state_reg' in module 'ControlUnit'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                   00000000000001 |                             0000
+                if_state |                   00000000000010 |                             0001
+                id_state |                   00000000000100 |                             0010
+              regs_state |                   00000000001000 |                             0011
+               add_state |                   00000000010000 |                             0100
+               sub_state |                   00000000100000 |                             0101
+               and_state |                   00000001000000 |                             0110
+                wb_state |                   00000010000000 |                             0111
+                  load10 |                   00000100000000 |                             1000
+                  load11 |                   00001000000000 |                             1001
+                  load12 |                   00010000000000 |                             1010
+                 store13 |                   00100000000000 |                             1011
+                    beq4 |                   01000000000000 |                             1100
+                   jump5 |                   10000000000000 |                             1101
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'current_state_reg' using encoding 'one-hot' in module 'ControlUnit'
+WARNING: [Synth 8-327] inferring latch for variable 'fio_jump_reg' [C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Control_Unit.vhd:172]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 1196.559 ; gain = 655.133
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input   32 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 1     
+	   2 Input   10 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 22    
+	               10 Bit    Registers := 1     
++---RAMs : 
+	              32K Bit	(1024 X 32 bit)          RAMs := 1     
++---Muxes : 
+	   4 Input   32 Bit        Muxes := 1     
+	   2 Input   32 Bit        Muxes := 1     
+	  14 Input   14 Bit        Muxes := 1     
+	   2 Input   14 Bit        Muxes := 1     
+	   8 Input   14 Bit        Muxes := 1     
+	   4 Input   10 Bit        Muxes := 1     
+	   2 Input   10 Bit        Muxes := 3     
+	   2 Input    4 Bit        Muxes := 1     
+	   3 Input    4 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 16    
+	  14 Input    1 Bit        Muxes := 7     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7129] Port Monitor_ULA[31] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[30] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[29] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[28] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[27] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[26] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[25] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[24] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[23] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[22] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[21] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[20] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[19] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[18] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[17] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[16] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[15] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[14] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[13] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[12] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[11] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[10] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[9] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[8] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[7] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[6] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[5] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[4] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[3] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[2] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[1] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_ULA[0] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[9] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[8] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[7] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[6] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[5] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[4] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[3] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[2] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[1] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Monitor_PC[0] in module TopLevel is either unconnected or has no load
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[13]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[12]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[11]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[10]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[9]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[8]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[7]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[6]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[5]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[4]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[3]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[2]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[1]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/FSM_onehot_current_state_reg[0]) is unused and will be removed from module TopLevel.
+WARNING: [Synth 8-3332] Sequential element (control_inst/fio_jump_reg) is unused and will be removed from module TopLevel.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:24 . Memory (MB): peak = 1362.301 ; gain = 820.875
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:24 . Memory (MB): peak = 1378.078 ; gain = 836.652
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:11 ; elapsed = 00:00:24 . Memory (MB): peak = 1378.078 ; gain = 836.652
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:15 ; elapsed = 00:00:27 . Memory (MB): peak = 1611.301 ; gain = 1069.875
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:15 ; elapsed = 00:00:27 . Memory (MB): peak = 1611.301 ; gain = 1069.875
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:15 ; elapsed = 00:00:27 . Memory (MB): peak = 1611.301 ; gain = 1069.875
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:15 ; elapsed = 00:00:27 . Memory (MB): peak = 1611.301 ; gain = 1069.875
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:15 ; elapsed = 00:00:27 . Memory (MB): peak = 1611.301 ; gain = 1069.875
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:15 ; elapsed = 00:00:27 . Memory (MB): peak = 1611.301 ; gain = 1069.875
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+------+------+
+|      |Cell  |Count |
++------+------+------+
+|1     |OBUFT |    42|
++------+------+------+
+
+Report Instance Areas: 
++------+---------+-------+------+
+|      |Instance |Module |Cells |
++------+---------+-------+------+
+|1     |top      |       |    42|
++------+---------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:15 ; elapsed = 00:00:27 . Memory (MB): peak = 1611.301 ; gain = 1069.875
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 104 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:15 ; elapsed = 00:00:27 . Memory (MB): peak = 1611.301 ; gain = 1069.875
+Synthesis Optimization Complete : Time (s): cpu = 00:00:15 ; elapsed = 00:00:27 . Memory (MB): peak = 1611.301 ; gain = 1069.875
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1626.320 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1735.988 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: c3454913
+INFO: [Common 17-83] Releasing license: Synthesis
+46 Infos, 105 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:17 ; elapsed = 00:00:31 . Memory (MB): peak = 1735.988 ; gain = 1201.359
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1735.988 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/nicol/Downloads/Trabalho_ORG/Trabalho_ORG.runs/synth_1/TopLevel.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file TopLevel_utilization_synth.rpt -pb TopLevel_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Dec  3 09:51:35 2025...

@@ -1,0 +1,199 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity tb_datapath_soma is
+end tb_datapath_soma;
+
+architecture behavior of tb_datapath_soma is
+
+    component data_path
+        Port(
+            clk             : in std_logic;
+            reset           : in std_logic;
+            Pc              : in std_logic;
+            Mem             : in std_logic;
+            Regs            : in std_logic;
+            ULA_sign        : in std_logic_vector(1 downto 0);
+            ULA_Write       : in std_logic;
+            Reg_Inst        : in std_logic;
+            Reg_Data        : in std_logic;     
+            Reg_A           : in std_logic;
+            Reg_B           : in std_logic;
+            Mux_Data_sign   : in std_logic;
+            Mux_PC_sign     : in std_logic_vector(1 downto 0);
+            Mux_MEM_sign    : in std_logic_vector(1 downto 0);
+            fio_jump        : in std_logic;
+            Opcode_out      : in std_logic_vector(3 downto 0)
+        );
+    end component;
+
+    ------------------------------------------------------------------
+    -- SINAIS DE CONTROLE
+    ------------------------------------------------------------------
+    signal clk             : std_logic := '0';
+    signal reset           : std_logic := '0';
+    signal Pc              : std_logic := '0';
+    signal Mem             : std_logic := '0';
+    signal Regs            : std_logic := '0';
+    signal ULA_sign        : std_logic_vector(1 downto 0) := "00";
+    signal ULA_Write       : std_logic := '0';
+    signal Reg_Inst        : std_logic := '0';
+    signal Reg_Data        : std_logic := '0';
+    signal Reg_A           : std_logic := '0';
+    signal Reg_B           : std_logic := '0';
+    signal Mux_Data_sign   : std_logic := '0';
+    signal Mux_PC_sign     : std_logic_vector(1 downto 0) := "00";
+    signal Mux_MEM_sign    : std_logic_vector(1 downto 0) := "00";
+    signal fio_jump        : std_logic := '0';
+    signal Opcode_out      : std_logic_vector(3 downto 0) := "0000";
+
+    constant clk_period : time := 10 ns;
+
+begin
+
+    ------------------------------------------------------------------
+    -- INSTÂNCIA DO DATAPATH
+    ------------------------------------------------------------------
+    uut: data_path
+        port map(
+            clk, reset, Pc, Mem, Regs, ULA_sign, ULA_Write,
+            Reg_Inst, Reg_Data, Reg_A, Reg_B,
+            Mux_Data_sign, Mux_PC_sign, Mux_MEM_sign,
+            fio_jump, Opcode_out
+        );
+
+    ------------------------------------------------------------------
+    -- CLOCK
+    ------------------------------------------------------------------
+    clk_process : process
+    begin
+        while true loop
+            clk <= '0';
+            wait for clk_period/2;
+            clk <= '1';
+            wait for clk_period/2;
+        end loop;
+    end process;
+
+    ------------------------------------------------------------------
+    -- PROCESSO DE TESTE
+    ------------------------------------------------------------------
+    stimulus_process : process
+    begin
+        ------------------------------------------------------------------
+        -- RESET INICIAL
+        ------------------------------------------------------------------
+        reset <= '1';
+        wait for 3*clk_period;
+        reset <= '0';
+        wait for clk_period;
+
+        ------------------------------------------------------------------
+        -- CONFIGURAÇÃO GERAL
+        ------------------------------------------------------------------
+        Mux_MEM_sign <= "01";   -- PC → endereço da memória
+        Pc <= '1';              -- permite atualização do PC
+
+        ------------------------------------------------------------------
+        -- FETCH INSTRUÇÃO 0 (LW R1, [512])
+        ------------------------------------------------------------------
+        Reg_Inst <= '1';
+        wait for clk_period;
+        Reg_Inst <= '0';
+
+        ------------------------------------------------------------------
+        -- EXECUÇÃO DO LW
+        ------------------------------------------------------------------
+        Reg_A <= '1';          -- carrega base (R0)
+        wait for clk_period;
+        Reg_A <= '0';
+
+        Mem <= '0';            -- leitura de memória
+        Reg_Data <= '1';       -- carrega DR com MEM_OUT
+        wait for clk_period;
+        Reg_Data <= '0';
+
+        Regs <= '1';           -- grava DR → R1
+        wait for clk_period;
+        Regs <= '0';
+
+        ------------------------------------------------------------------
+        -- FETCH INSTRUÇÃO 1 (LW R2, [513])
+        ------------------------------------------------------------------
+        Reg_Inst <= '1';
+        wait for clk_period;
+        Reg_Inst <= '0';
+
+        ------------------------------------------------------------------
+        -- EXECUÇÃO DO LW
+        ------------------------------------------------------------------
+        Reg_A <= '1';
+        wait for clk_period;
+        Reg_A <= '0';
+
+        Mem <= '0';
+        Reg_Data <= '1';
+        wait for clk_period;
+        Reg_Data <= '0';
+
+        Regs <= '1';
+        wait for clk_period;
+        Regs <= '0';
+
+        ------------------------------------------------------------------
+        -- FETCH INSTR 2: ADD R3 = R1 + R2
+        ------------------------------------------------------------------
+        Reg_Inst <= '1';
+        wait for clk_period;
+        Reg_Inst <= '0';
+
+        -- carregar operandos
+        Reg_A <= '1';
+        Reg_B <= '1';
+        wait for clk_period;
+        Reg_A <= '0';
+        Reg_B <= '0';
+
+        -- executar ADD
+        ULA_sign <= "00";   -- ADD
+        ULA_Write <= '1';
+        wait for clk_period;
+        ULA_Write <= '0';
+
+        -- enviar ULA_OUT → R3
+        Mux_Data_sign <= '1'; -- pega da ULA
+        Reg_Data      <= '1';
+        wait for clk_period;
+        Reg_Data <= '0';
+
+        Regs <= '1';
+        wait for clk_period;
+        Regs <= '0';
+
+        ------------------------------------------------------------------
+        -- FETCH INSTR 3 - SW R3 → [520]
+        ------------------------------------------------------------------
+        Reg_Inst <= '1';
+        wait for clk_period;
+        Reg_Inst <= '0';
+
+        -- carregar REG_A e REG_B
+        Reg_A <= '1';      -- base
+        Reg_B <= '1';      -- dado a escrever
+        wait for clk_period;
+        Reg_A <= '0';
+        Reg_B <= '0';
+
+        -- realizar escrita
+        Mem <= '1';        -- escreve memória
+        wait for clk_period;
+        Mem <= '0';
+
+        ------------------------------------------------------------------
+        -- FIM
+        ------------------------------------------------------------------
+        wait;
+    end process;
+
+end behavior;

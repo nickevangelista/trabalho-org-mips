@@ -1,0 +1,16 @@
+0.7
+2020.2
+Nov 14 2025
+19:37:27
+D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sim_1/new/Tb_Toplevel.vhd,1765128120,vhdl,,,,tb_toplevel,,,,,,,,
+D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Control_Unit.vhd,1765289015,vhdl,D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/TopLevel.vhd,,,controlunit,,,,,,,,
+D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mem.vhd,1765384711,vhdl,,,,memoria,,,,,,,,
+D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mux_Data.vhd,1765286995,vhdl,,,,mux_data,,,,,,,,
+D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mux_Mem.vhd,1765128120,vhdl,,,,mux_mem,,,,,,,,
+D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Mux_Pc1.vhd,1765286948,vhdl,,,,mux_pc1,,,,,,,,
+D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Reg_File.vhd,1765286884,vhdl,,,,reg_file,,,,,,,,
+D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/Somador_PC_4.vhd,1765286425,vhdl,,,,somador_pc_4,,,,,,,,
+D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/TopLevel.vhd,1765128120,vhdl,,,,toplevel,,,,,,,,
+D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/ULA.vhd,1765286502,vhdl,,,,ula,,,,,,,,
+D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/data_path.vhd,1765288680,vhdl,D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/TopLevel.vhd,,,data_path,,,,,,,,
+D:/FACULDADE/Org/Trabalho_ORG2.0/Trabalho_ORG/Trabalho_ORG.srcs/sources_1/new/subtrator.vhd,1765128120,vhdl,,,,subtrator,,,,,,,,
