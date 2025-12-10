@@ -10,6 +10,7 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
+<<<<<<< HEAD
       <ZoomStartTime time="20.030 ns"></ZoomStartTime>
       <ZoomEndTime time="448.031 ns"></ZoomEndTime>
       <Cursor1Time time="90.167 ns"></Cursor1Time>
@@ -19,6 +20,17 @@
       <ValueColumnWidth column_width="61"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="31" />
+=======
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="746.001 ns"></ZoomEndTime>
+      <Cursor1Time time="325.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="139"></NameColumnWidth>
+      <ValueColumnWidth column_width="61"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="30" />
+>>>>>>> a78608c8f35832e53940c461db8499d4780b519a
    <wvobject fp_name="/TB_TopLevel/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -140,8 +152,11 @@
       <obj_property name="ElementShortName">addr_J[9:0]</obj_property>
       <obj_property name="ObjectShortName">addr_J[9:0]</obj_property>
    </wvobject>
+<<<<<<< HEAD
    <wvobject fp_name="/TB_TopLevel/UUT/datapath_inst/Reg_File_Instancia/registradores" type="array">
       <obj_property name="ElementShortName">registradores[0:15][31:0]</obj_property>
       <obj_property name="ObjectShortName">registradores[0:15][31:0]</obj_property>
    </wvobject>
+=======
+>>>>>>> a78608c8f35832e53940c461db8499d4780b519a
 </wave_config>
